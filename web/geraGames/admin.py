@@ -17,6 +17,7 @@ class JuegosDatosForm(forms.ModelForm):
     class Meta:
         model = JuegosDatos
         fields = ['juego', 'categoria', 'plataforma', 'creador']
+        
 # Registrar el admin con el formulario personalizado
 class JuegosDatosAdmin(admin.ModelAdmin):
     form = JuegosDatosForm
