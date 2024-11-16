@@ -51,8 +51,8 @@ class Review(models.Model):
     
 class JuegosDatos(models.Model):
     juego = models.ForeignKey(Juego, on_delete=models.CASCADE)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    plataforma = models.ForeignKey(Plataforma, on_delete=models.CASCADE)
+    categoria = models.ManyToManyField(Categoria)
+    plataforma = models.ManyToManyField(Plataforma)
     creador = models.ForeignKey(Creador, on_delete=models.CASCADE)
 
     def __str__(self):
