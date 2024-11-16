@@ -1,12 +1,16 @@
 # GeraTec
-<h3>Comandos Basicos</h3>
-<p> Creacion de super ususarios:</b> <br>
-python manage.py createsuperuser <br><br>
-Revisar status de la aplicacion:</b> <br>
-python manage.py check geraGames <br><br>
-Realizar migracion por cambios a la BD:</b><br>
-python manage.py makemigrations geraGames <br>
-python manage.py migrate <br><br>
-Ejecutar Servidor:</b> <br>
-python manage.py runserver <br><br>
+<h3>Comandos Básicos</h3>
+<p>
+  <strong>Creación de superusuarios:</strong><br>
+  <code>python manage.py createsuperuser</code><br><br>
+        
+  <strong>Revisar el estado de la aplicación:</strong><br>
+  <code>python manage.py check geraGames</code><br><br>
+        
+  <strong>Realizar migración por cambios a la BD:</strong><br>
+  <code>python manage.py makemigrations geraGames</code><br>
+  <code>python manage.py migrate</code><br><br>
+        
+  <strong>Ejecutar el servidor:</strong><br>
+  <code>python manage.py runserver</code><br>
 </p>
