@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from geraGames import views
+
 
 from geraGames.models import Usuario, Categoria, Plataforma, Creador, Juego, Review, JuegosDatos
 
@@ -23,5 +25,5 @@ from geraGames.models import Usuario, Categoria, Plataforma, Creador, Juego, Rev
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("prueba/", views.prueba),
 ]
-

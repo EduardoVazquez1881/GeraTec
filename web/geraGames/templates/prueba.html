@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Prueba{% endblock %}
+
+{% block body %}
+<div class="container mx-auto flex justify-between items-center relative top-8">
+    <div class="container mx-auto">
+        <div class="flex justify-end ">
+            <input type="text" class="flex border-gray-400 border-2 rounded-xl h-10" placeholder="Buscar">
+        </div>
+        <div class="text-2xl text-black font-bold relative mt-[-35px]">Mas vistos</div>
+        <div class="border-t-2 border-black mt-4">
+            <!-- Contenedor con scroll horizontal -->
+            <div class="p-4 overflow-x-auto scrollbar-hide">
+              <!-- Contenedor interno que define el ancho total de las tarjetas -->
+              <div class="flex gap-4 min-w-full">
+                {% for i in 1..10 %}
+                <!-- Tarjeta individual -->
+                <div class="w-64 flex-shrink-0 bg-white shadow-md rounded-lg overflow-hidden hover:scale-105 hover:shadow-xl transition-all duration-300">
+                  <img class="w-full h-48 object-cover" src="https://image.api.playstation.com/vulcan/img/cfn/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4.png" alt="Imagen de ejemplo">
+                  <div class="p-4">
+                    <h3 class="text-xl font-semibold text-gray-800">Nombre Juego</h3>
+                    <p class="text-gray-600 mt-2">Categoría</p>
+                    <a href="/informacion">
+                        <button class="mt-4 text-white bg-black hover:bg-white hover:text-black hover:border hover:border-black px-6 py-2 rounded-xl shadow-md transition-all duration-300">
+                          Información
+                        </button>
+                    </a>
+                      
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="border-t-2 border-black mt-4">
+          </div>
+      </div>
+</div>
+
+<!-- Modal -->
+<div id="login" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50 transition-opacity duration-300">
+  <div class="bg-black w-96 p-6 rounded-lg shadow-lg relative">
+      <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="modalLogin(false)">
+          &times;
+      </button>
+      <div class="container mx-auto w-80 p-6 flex flex-col items-center justify-center bg-black border-2 border-black rounded-lg shadow-lg">
+          <h1 class="text-2xl font-bold mb-4 text-white">Sign Up</h1>
+          <form class="w-full flex flex-col gap-4">
+              <label class="text-white">First Name</label>
+              <input type="text" class="border border-gray-300 rounded-lg p-2" placeholder="Ingrese su nombre">
+              <label class="text-white">Last Name</label>
+              <input type="text" class="border border-gray-300 rounded-lg p-2" placeholder="Ingrese su apellido">
+              <label class="text-white">Mail</label>
+              <input type="email" class="border border-gray-300 rounded-lg p-2" placeholder="Ingrese su correo">
+              <label class="text-white">Password</label>
+              <input type="password" class="border border-gray-300 rounded-lg p-2" placeholder="Ingrese su contraseña">
+              <button class="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">Registrarse</button>
+          </form>
+          <p class="text-white mt-4">¿Ya tienes cuenta? <a href="#" onclick=modalSignUp(true) class="text-blue-400 hover:underline">Inicia sesión</a></p>
+      </div>
+  </div>
+</div>
+
+<div id="signup" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50 transition-opacity duration-300">
+  <div class="bg-black w-96 p-6 rounded-lg shadow-lg relative">
+    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" onclick="modalSignUp(false)">
+        &times;
+    </button>
+    <div class="container mx-auto w-80 p-6 flex flex-col items-center justify-center bg-black border-2 border-black rounded-lg shadow-lg">
+      <h1 class="text-2xl font-bold mb-4 text-white">Login</h1>
+      <form class="w-full flex flex-col gap-4">
+        <label class="text-white">Correo</label>
+        <input type="text" class="border border-gray-300 rounded-lg p-2" placeholder="Ingresar correo">
+        <label class="text-white">Contraseña</label>
+        <input type="text" class="border border-gray-300 rounded-lg p-2" placeholder="Ingresar contraseña">
+        <button class="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-all">Iniciar sesión</button>
+      </form>
+      <p class="text-white mt-4">¿No tienes cuenta? <a href="#" onclick=modalLogin(true) class="text-blue-400 hover:underline">Registrate</a></p>
+    </div>
+</div>
+
+<script>
+// Función para mostrar y ocultar modales
+function modalLogin(show) {
+  const loginModal = document.getElementById('login');
+  const signupModal = document.getElementById('signup'); // Asegura cerrar el otro modal
+
+  if (show) {
+      loginModal.classList.remove('hidden');
+      loginModal.classList.add('flex', 'opacity-100');
+      signupModal.classList.add('hidden'); // Cierra el modal de Sign Up si está abierto
+      localStorage.setItem('modalOpenLogin', 'true');
+      localStorage.setItem('modalOpenSignup', 'false');
+  } else {
+      loginModal.classList.add('hidden');
+      loginModal.classList.remove('flex', 'opacity-100');
+      localStorage.setItem('modalOpenLogin', 'false');
+  }
+}
+
+function modalSignUp(show) {
+  const signupModal = document.getElementById('signup');
+  const loginModal = document.getElementById('login'); // Asegura cerrar el otro modal
+
+  if (show) {
+      signupModal.classList.remove('hidden');
+      signupModal.classList.add('flex', 'opacity-100');
+      loginModal.classList.add('hidden'); // Cierra el modal de Login si está abierto
+      localStorage.setItem('modalOpenSignup', 'true');
+      localStorage.setItem('modalOpenLogin', 'false');
+  } else {
+      signupModal.classList.add('hidden');
+      signupModal.classList.remove('flex', 'opacity-100');
+      localStorage.setItem('modalOpenSignup', 'false');
+  }
+}
+
+// Comprobar el estado de los modales al cargar la página
+window.addEventListener('DOMContentLoaded', () => {
+  const modalStateLogin = localStorage.getItem('modalOpenLogin') === 'true';
+  const modalStateSignUp = localStorage.getItem('modalOpenSignup') === 'true';
+
+  if (modalStateLogin) {
+      modalLogin(true); // Abrir Login si estaba abierto
+  } else if (modalStateSignUp) {
+      modalSignUp(true); // Abrir Sign Up si estaba abierto
+  }
+});
+
+</script>
+{% endblock %}

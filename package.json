@@ -1,0 +1,12 @@
+{
+  "name": "django",
+  "version": "1.0.0",
+  "description": "<h3>Comandos Básicos</h3> <p>   <strong>Creación de superusuarios:</strong><br>   <code>python manage.py createsuperuser</code><br><br>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
