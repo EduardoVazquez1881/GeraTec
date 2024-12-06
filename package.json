@@ -1,12 +1,18 @@
 {
-  "name": "django",
+  "name": "django-tailwind",
   "version": "1.0.0",
-  "description": "<h3>Comandos Básicos</h3> <p>   <strong>Creación de superusuarios:</strong><br>   <code>python manage.py createsuperuser</code><br><br>",
+  "description": "Configuración de Tailwind CSS para un proyecto Django",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "build-css": "npx tailwindcss -i web/geraGames/static/css/styles.css -o web/geraGames/static/css/output.css --watch"
+  }
+  ,
+  "keywords": ["django", "tailwindcss"],
+  "author": "TuNombre",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.0.0",
+    "postcss": "^8.0.0",
+    "autoprefixer": "^10.0.0"
+  }
 }
