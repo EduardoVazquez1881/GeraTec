@@ -7,3 +7,12 @@ def listar_usuarios(request):
 
 def prueba(request):
     return render(request, 'prueba.html')
+
+def info(request):
+    return render(request, 'info.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def menu(request):
+    return render(request, 'menu.html')

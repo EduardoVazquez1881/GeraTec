@@ -26,4 +26,7 @@ from geraGames.models import Usuario, Categoria, Plataforma, Creador, Juego, Rev
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("prueba/", views.prueba),
+    path("info/", views.info),
+    path("login/", views.login),
+    path("menu/", views.menu),
 ]
