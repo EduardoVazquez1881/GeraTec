@@ -1,35 +1,40 @@
 {% extends 'base.html' %}
 {% block title %}Menu{% endblock %}
 {% block body %}
-<body class="bg-fondo">
+<body class="bg-white">
     <div class="flex h-screen justify-center">
         <div class="container w-full bg-fondo">
-            <div class="container flex relative p-16 left-10">
-                <div class="font-bold text-2xl"> Juegos </div>
-            </div>
-            <div class="flex relative">
-                <div class="border-t border-white w-full"></div>
-            </div>
             <div class="p-4">
-                <div class="font-bold text-xl mb-4">Los más vistos</div>
-                <div class="grid grid-cols-3 gap-4 mb-8">
+                <div class="font-bold text-xl mb-4 text-white">Los más vistos</div>
+                <div class="grid grid-cols-3 gap-4 mb-8 my-4 transition transform hover:scale-110">
                     {% for datosgames in datosgames %}
-                    <div class="border p-4 bg-white rounded-lg shadow-md w-64">
-                        <img src="{{ juego.foto }}" alt="{{ juego.nombre }}" class="w-full h-32 object-cover rounded-md mb-2">
-                        <h3 class="font-bold text-xl">{{ datosgames.nombre }}</h3>
-                        <p>{{ juego.descripcion }}</p>
-                        <p class="text-yellow-500">Calificación: {{ juego.calificacion }}</p>
+                    <div class="border-none p-2 bg-fondo rounded-lg shadow-md w-64">
+                        <img src="{{ datosgames.juego.imagen.url }}" alt="{{ datosgames.juego.nombre }}" class="w-full h-32 object-cover rounded-md mb-2">
+                        <h3 class="font-bold text-xl text-white">{{ datosgames.juego.nombre }}</h3>
+                        <p class="text-white">
+                            Categorías: 
+                            {% for categoria in datosgames.categoria.all %}
+                                {{ categoria.categoria }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="text-white">
+                            Plataformas: 
+                            {% for plataforma in datosgames.plataforma.all %}
+                                {{ plataforma.palaforma }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="text-white"> {{ datosgames.juego.precio }}</p>
                     </div>
                     {% endfor %}
-                </div>
+                </div>                
                 <div class="font-bold text-xl mb-4">Juegos</div>
                 <div class="grid grid-cols-3 gap-4">
                     {% for juego in juegos %}
                     <div class="border p-4 bg-white rounded-lg shadow-md w-64">
-                        <img src="{{ juego.foto }}" alt="{{ juego.nombre }}" class="w-full h-32 object-cover rounded-md mb-2">
+                        <img src="{{ juego.imagen.url }}" alt="{{ juego.nombre }}" class="w-full h-32 object-cover rounded-md mb-2">
                         <h3 class="font-bold text-xl">{{ juego.nombre }}</h3>
                         <p>{{ juego.descripcion }}</p>
-                        <p class="text-yellow-500">Calificación: {{ juego.calificacion }}</p>
+                        <p class="text-yellow-500">Precio: {{ juego.precio }}</p>
                     </div>
                     {% endfor %}
                 </div>
