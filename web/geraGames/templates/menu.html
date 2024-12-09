@@ -1,18 +1,40 @@
 {% extends 'base.html' %}
 {% block title %}Menu{% endblock %}
 {% block body %}
-<header class="bg-blue-600 text-white py-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">Mi Proyecto Django</h1>
-        <nav>
-            <ul class="flex space-x-4">
-                <li><a href="#" class="hover:text-blue-300">Inicio</a></li>
-                <li><a href="#" class="hover:text-blue-300">Servicios</a></li>
-                <li><a href="#" class="hover:text-blue-300">Contacto</a></li>
-            </ul>
-        </nav>
+<body class="bg-fondo">
+    <div class="flex h-screen justify-center">
+        <div class="container w-full bg-fondo">
+            <div class="container flex relative p-16 left-10">
+                <div class="font-bold text-2xl"> Juegos </div>
+            </div>
+            <div class="flex relative">
+                <div class="border-t border-white w-full"></div>
+            </div>
+            <div class="p-4">
+                <div class="font-bold text-xl mb-4">Los más vistos</div>
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    {% for datosgames in datosgames %}
+                    <div class="border p-4 bg-white rounded-lg shadow-md w-64">
+                        <img src="{{ juego.foto }}" alt="{{ juego.nombre }}" class="w-full h-32 object-cover rounded-md mb-2">
+                        <h3 class="font-bold text-xl">{{ datosgames.nombre }}</h3>
+                        <p>{{ juego.descripcion }}</p>
+                        <p class="text-yellow-500">Calificación: {{ juego.calificacion }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="font-bold text-xl mb-4">Juegos</div>
+                <div class="grid grid-cols-3 gap-4">
+                    {% for juego in juegos %}
+                    <div class="border p-4 bg-white rounded-lg shadow-md w-64">
+                        <img src="{{ juego.foto }}" alt="{{ juego.nombre }}" class="w-full h-32 object-cover rounded-md mb-2">
+                        <h3 class="font-bold text-xl">{{ juego.nombre }}</h3>
+                        <p>{{ juego.descripcion }}</p>
+                        <p class="text-yellow-500">Calificación: {{ juego.calificacion }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-</header>
-
-
+</body>
 {% endblock %}

@@ -8,7 +8,26 @@
         <link href="{% static 'css/output.css' %}" rel="stylesheet">
     </head>
     <body>
+        {% block nav %}
+        <nav class="bg-fondonaranja shadow-2xl h-20 rounded-xl border border-white">
+            <div class="container mx-auto">
+                <div class="sm:flex justify-around">
+                    <a href="/menu" class="text-black text-3xl font-bold p-4 relative top-1 -ml-16"> Gera Games</a>
+                    
+                    <ul class="text-white sm:self-center text-base border-t sm:border-none">
+                        <li class="sm:inline-block pt-3">
+                            <a href="/menu" class="p-3 hover:text-black">Inicio</a>
+                            <a href="" class="p-3 hover:text-black">Categorias</a>
+                            <input type="text" class="border border-fondo bg-fondonaranja rounded-lg p-3 h-9 placeholder:text-white" name="" id="" placeholder="Buscar">
+                            <a href="/login" class="p-3 hover:text-black">Ingresar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% endblock %}
         {% block body %}
+        
         {% endblock %}
         <!-- Importar JavaScript -->
         {% block javascripts %}

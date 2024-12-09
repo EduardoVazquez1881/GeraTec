@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Usuario
+from .models import Usuario, Juego
 
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
@@ -15,4 +15,5 @@ def login(request):
     return render(request, 'login.html')
 
 def menu(request):
-    return render(request, 'menu.html')
+    datosgames = Juego.objects.all()
+    return render(request, 'menu.html', {'datosgames': datosgames})

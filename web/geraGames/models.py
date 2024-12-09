@@ -34,6 +34,7 @@ class Juego(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=6, decimal_places=2)
     fecha = models.DateField()
+    imagen = models.ImageField(upload_to='juegos/', null=True, blank=True)  # Campo para la imagen
 
     def __str__(self):
         return f"{self.nombre} ({self.precio})"

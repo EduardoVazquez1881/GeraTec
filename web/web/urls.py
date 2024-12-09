@@ -28,5 +28,5 @@ urlpatterns = [
     path("prueba/", views.prueba),
     path("info/", views.info),
     path("login/", views.login),
-    path("menu/", views.menu),
+    path("menu/", views.menu, name='menu'),
 ]
