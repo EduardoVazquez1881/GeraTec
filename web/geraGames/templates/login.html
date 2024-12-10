@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Inicio{% endblock %}
+
+{% block nav %}
+
+{% endblock %}
+
 {% block body %}
 <div class="flex h-screen">
   <!-- Contenedor izquierdo -->
@@ -7,108 +12,44 @@
     <img src="../static/image/geragamesLogo.png">
   </div>
   
-  <!-- Contenedor derecho -->
   <div class="w-1/2 bg-fondo flex items-center justify-center relative">
     <!-- Formularios -->
     <div class="bg-fondo p-8 rounded-lg w-96">
       <div id="loginForm" class="space-y-6">
         <h2 class="text-2xl font-bold text-white">Login</h2>
-        <form>
+        <form method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
           <div class="mb-4">
-            <label class="block text-white text-sm font-bold mb-2" for="email">
+            <label class="block text-white text-sm font-bold mb-2" for="correo">
               Email
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="usuario@example.com">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="correo" type="correo" name="correo" placeholder="usuario@example.com" required>
           </div>
           <div class="mb-8">
-            <label class="block text-white text-sm font-bold mb-2" for="password">
+            <label class="block text-white text-sm font-bold mb-2" for="contra">
               Password
             </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="********">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline" id="contra" type="contra" name="contra" placeholder="********" required>
           </div>
           <div class="flex items-center justify-center">
-            </button>
-            <a id="switchToRegister" class="inline-block align-baseline font-bold text-sm text-white hover:text-colorhover cursor-pointer">
-              Register
-            </a>
-          </div>
-        </form>
-      </div>
-
-      <div id="registerForm" class="space-y-6 hidden">
-        <h2 class="text-2xl font-bold text-white">Register</h2>
-        <form>
-          <div class="mb-4">
-            <label class="block text-white text-sm font-bold mb-2" for="newUsername">
-              Username
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="newUsername" type="text" placeholder="Username">
-          </div>
-          <div class="mb-4">
-            <label class="block text-white text-sm font-bold mb-2" for="newEmail">
-              Email
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" id="newEmail" type="email" placeholder="usuario@example.com">
-          </div>
-          <div class="mb-6">
-            <label class="block text-white text-sm font-bold mb-2" for="newPassword">
-              Password
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline" id="newPassword" type="password" placeholder="********">
-          </div>
-          <div class="flex items-center justify-between">
-            <button id="registerBtn" class="bg-fondonaranja hover:bg-colorhover text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-              Register
-            </button>
-            <a id="switchToLogin" class="inline-block align-baseline font-bold text-sm text-white hover:text-colorhover cursor-pointer">
+            <button type="submit" class="bg-fondonaranja hover:bg-colorhover text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Login
-            </a>
+            </button>
           </div>
         </form>
       </div>
     </div>
-
     <!-- Botones de navegación -->
     <div class="absolute flex flex-nowrap top-5 right-5 content-between">
-      <div id="loginBtnNav" class="text-white p-4 bg-azulhover rounded-l-lg hover:bg-colorhover transition-all cursor-pointer">
-        Login
+      <div id="loginBtnNav" class="text-white p-4 bg-fondonaranja rounded-l-lg hover:bg-colorhover transition-all cursor-pointer">
+        Login 
       </div>
-      <div id="registerBtnNav" class="text-white p-4 bg-fondonaranja rounded-r-lg hover:bg-colorhover transition-all cursor-pointer">
+      <a href="/registro">
+      <div id="registerBtnNav"  class="text-white p-4 bg-azulhover rounded-r-lg hover:bg-colorhover transition-all cursor-pointer">
         Register
       </div>
+      </a>
     </div>
   </div>
 </div>
-
-<script>
-  const loginForm = document.getElementById('loginForm');
-  const registerForm = document.getElementById('registerForm');
-  const loginBtnNav = document.getElementById('loginBtnNav');
-  const registerBtnNav = document.getElementById('registerBtnNav');
-  const loginBtn = document.getElementById('loginBtn');
-  const registerBtn = document.getElementById('registerBtn');
-  const switchToRegister = document.getElementById('switchToRegister');
-  const switchToLogin = document.getElementById('switchToLogin');
-
-  // Mostrar/ocultar formularios
-  function showLoginForm() {
-    loginForm.classList.remove('hidden');
-    registerForm.classList.add('hidden');
-    loginBtnNav.classList.add('bg-fondonaranja');
-    registerBtnNav.classList.remove('bg-fondonaranja');
-  }
-
-  function showRegisterForm() {
-    registerForm.classList.remove('hidden');
-    loginForm.classList.add('hidden');
-    registerBtnNav.classList.add('bg-fondonaranja');
-    loginBtnNav.classList.remove('bg-fondonaranja');
-  }
-
-  // Eventos de clic
-  loginBtnNav.addEventListener('click', showLoginForm);
-  registerBtnNav.addEventListener('click', showRegisterForm);
-  switchToRegister.addEventListener('click', showRegisterForm);
-  switchToLogin.addEventListener('click', showLoginForm);
-</script>
 {% endblock %}

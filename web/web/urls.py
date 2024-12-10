@@ -28,9 +28,10 @@ from geraGames.models import Usuario, Categoria, Plataforma, Creador, Juego, Rev
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("prueba/", views.prueba),
-    path("info/", views.info),
-    path("login/", views.login),
+    path('login/', views.login, name='login'),  # Aquí debes llamar la vista correctamente
+    path('registro/', views.registro, name='registro'),  # Correcta definición de la URL de registro
     path("menu/", views.menu, name='menu'),
+    path("menu/<int:juego_id>/", views.info, name='info'),
 ]
 
 if settings.DEBUG:
