@@ -11,6 +11,9 @@ module.exports = {
         colorhover: '#f09709',
         azulhover: '#203a57'
       },
+      spacing: {
+        18: '4.5rem', // Equivale a 72px (18 * 4)
+      },
     },
   },
   plugins: [],

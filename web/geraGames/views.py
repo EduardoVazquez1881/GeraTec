@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Usuario, Juego, JuegosDatos, Review
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -54,25 +54,30 @@ def registro(request):
 def menu(request):
     datosgames = JuegosDatos.objects.select_related('juego', 'creador').prefetch_related('categoria', 'plataforma')
     juegos = Juego.objects.all()  # Todos los juegos
+    juegosvisitados = Juego.objects.order_by('-visitas')[:5]  # Los 5 juegos más visitados
     print(juegos)
-    return render(request, 'menu.html', {'datosgames': datosgames, 'juegos': juegos})
+    return render(request, 'menu.html', {'datosgames': datosgames, 'juegos': juegos, juegosvisitados: 'juegosvisitados'})
 
 def info(request, juego_id):
-    juego = Juego.objects.get(pk=juego_id)
+    #if request.method == 'POST':
+        
+    juego = get_object_or_404(Juego, pk=juego_id)
+    juego.visitas += 1
+    juego.save()
 
     obj = JuegosDatos.objects.get(juego=juego)
     creadores = obj.creador
     plataformas = obj.plataforma.all()
     categorias = obj.categoria.all()
 
-    res = Review.objects.filter(juego=juego).all()
 
+    total= 0
+    res = Review.objects.filter(juego=juego)
+    if (res.count() != 0):
+        calificaciones = [res.calificacion for res in res]
+        for i in calificaciones:
+            total += i
+        total = total / len(calificaciones)
 
-    print("ESTO ES DE RESEÑAS:", res)
+    return render(request, 'info.html', {'juego': juego, 'creadores': creadores, 'plataformas': plataformas, 'categorias': categorias, 'res': res, 'total': total})
 
-
-
-    print(categorias)
-    print(plataformas)
-    print(creadores)
-    return render(request, 'info.html', {'juego': juego})

@@ -25,6 +25,8 @@ class Usuario(models.Model):
     correo = models.EmailField(unique=True)
     contra = models.CharField(max_length=30)
     super = models.BooleanField(default=False)
+    imagen = models.ImageField(upload_to='usr/', null=True, blank=True, default='usr/default.jpg')  # Campo para la imagen
+
 
     def __str__(self):
         return f"{self.nombre} {self.apellido} ({self.correo})"
@@ -35,6 +37,8 @@ class Juego(models.Model):
     precio = models.DecimalField(max_digits=6, decimal_places=2)
     fecha = models.DateField()
     imagen = models.ImageField(upload_to='juegos/', null=True, blank=True)  # Campo para la imagen
+    visitas = models.IntegerField(default=0)
+    url = models.URLField(default='', blank=True)  # Define un valor predeterminado para el nuevo campo
 
     def __str__(self):
         return f"{self.nombre} ({self.precio})"

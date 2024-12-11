@@ -6,7 +6,7 @@
     <div class="flex flex-wrap justify-start gap-4 border-t-4 bg-fondo p-8 mx-10">
         {% for datosgames in datosgames %}
             <a href="{% url 'info' datosgames.juego.id %}">
-                <div class="w-80 bg-white shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border-red-500">
+                <div class="w-72 bg-white shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border-red-500">
                     <img class="w-full h-48 object-cover" src="{{ datosgames.juego.imagen.url }}" alt="{{ datosgames.juego.nombre }}">
                     <div class="p-4">
                         <h2 class="text-lg font-semibold text-gray-800">{{ datosgames.juego.nombre }}</h2>
