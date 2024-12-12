@@ -88,14 +88,7 @@ def info(request, juego_id):
             Review.objects.create(juego_id=juego_id, calificacion=calificacion, dificultad=dificultad, res=res, fecha=fecha, usuario_id=usuario_id)
         else:
             print('Ya has hecho una review')
-        
-
-
-
-
-
-
-        
+            
     juego = get_object_or_404(Juego, pk=juego_id)
     juego.visitas += 1
     juego.save()
@@ -117,6 +110,10 @@ def info(request, juego_id):
 
 def categoria(request):
     categoria = request.GET.get('categoria')
-    return render(request, 'categorias.html', {
-        'categoria_seleccionada': categoria
-    })
+    categoria_obj = Categoria.objects.get(categoria=categoria)
+    datosgames = JuegosDatos.objects.select_related('juego', 'creador').prefetch_related('categoria', 'plataforma')
+    juegos = datosgames.filter(categoria=categoria_obj)
+
+    print(juegos)
+    return render(request, 'categorias.html', {'categoria': categoria_obj, 'juegos': juegos})
+

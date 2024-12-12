@@ -1,1 +1,26 @@
-<h1>holaaaa</h1>
+{% extends 'base.html' %}
+{% block title %}Info{% endblock %}
+{% block body %}
+
+<body class="bg-fondo">
+    <div class="p-8 text-4xl ml-24 font-bold text-white relative top-4 mx-12">{{ categoria }}</div>
+    <div class="flex flex-wrap justify-start border-t-2 border-orange-600 bg-fondo p-8 mx-10">
+        {% for juegos in juegos %}
+            <a href="{% url 'info' juegos.juego.id %}">
+                <div class="w-90 ml-7 bg-fondonaranja hover:bg-orange-600 shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border-red-500">
+                    <img class="w-full h-48 object-cover" src="{{ juegos.juego.imagen.url }}" alt="{{ juegos.juego.nombre }}">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">{{ juegos.juego.nombre }}</h2>
+                        <p class="text-sm text-gray-600">
+                            {% for categoria in juegos.categoria.all %}
+                                {{ categoria.categoria }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+    
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>    
+</body>
+{% endblock %}
