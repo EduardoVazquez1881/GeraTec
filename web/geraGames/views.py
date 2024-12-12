@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Usuario, Juego, JuegosDatos, Review
+from .models import Usuario, Juego, JuegosDatos, Review, Categoria
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
+
 
 
 def listar_usuarios(request):
@@ -53,13 +54,21 @@ def registro(request):
 
 def menu(request):
     datosgames = JuegosDatos.objects.select_related('juego', 'creador').prefetch_related('categoria', 'plataforma')
-    juegos = Juego.objects.all()  # Todos los juegos
-    juegosvisitados = Juego.objects.order_by('-visitas')[:5]  # Los 5 juegos más visitados
-    print(juegos)
-    return render(request, 'menu.html', {'datosgames': datosgames, 'juegos': juegos, juegosvisitados: 'juegosvisitados'})
+    ordenados = datosgames.order_by('-juego__visitas')
+    categorias = Categoria.objects.all()
+    JuegosCategorias = datosgames.filter(categoria__in=categorias)
+
+    juegosFiltrados = {}
+
+    for i in categorias:
+        juegosFiltrados[i.categoria] = datosgames.filter(categoria=i)
+        
+    return render(request, 'menu.html', {'datosgames': datosgames, 'datosordenados': ordenados, 'categorias': categorias, 'juegosFiltrados': juegosFiltrados, 'JuegosCategorias': JuegosCategorias})
+
+
+
 
 def info(request, juego_id):
-    #if request.method == 'POST':
         
     juego = get_object_or_404(Juego, pk=juego_id)
     juego.visitas += 1
@@ -70,7 +79,7 @@ def info(request, juego_id):
     plataformas = obj.plataforma.all()
     categorias = obj.categoria.all()
 
-
+    print(juego.visitas)
     total= 0
     res = Review.objects.filter(juego=juego)
     if (res.count() != 0):
@@ -78,6 +87,10 @@ def info(request, juego_id):
         for i in calificaciones:
             total += i
         total = total / len(calificaciones)
-
     return render(request, 'info.html', {'juego': juego, 'creadores': creadores, 'plataformas': plataformas, 'categorias': categorias, 'res': res, 'total': total})
 
+def categoria(request):
+    categoria = request.GET.get('categoria')
+    return render(request, 'categorias.html', {
+        'categoria_seleccionada': categoria
+    })

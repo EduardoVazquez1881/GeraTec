@@ -32,6 +32,8 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),  # Correcta definición de la URL de registro
     path("menu/", views.menu, name='menu'),
     path("menu/<int:juego_id>/", views.info, name='info'),
+    path("categoria/", views.categoria, name='categoria'),
+
 ]
 
 if settings.DEBUG:

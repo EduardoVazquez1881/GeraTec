@@ -13,6 +13,8 @@ module.exports = {
       },
       spacing: {
         18: '4.5rem', // Equivale a 72px (18 * 4)
+        85: '21.25rem', // Equivale a 340px (85 * 4)
+        90: '22.5rem', // Equivale a 360px (90 * 4)        
       },
     },
   },

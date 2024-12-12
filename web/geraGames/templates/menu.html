@@ -2,16 +2,16 @@
 {% block title %}Menu{% endblock %}
 {% block body %}
 <body class="bg-fondo">
-    <div class="p-8 text-2xl font-bold text-white relative top-4 mx-12">Juegos</div>
-    <div class="flex flex-wrap justify-start gap-4 border-t-4 bg-fondo p-8 mx-10">
-        {% for datosgames in datosgames %}
-            <a href="{% url 'info' datosgames.juego.id %}">
-                <div class="w-72 bg-white shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border-red-500">
-                    <img class="w-full h-48 object-cover" src="{{ datosgames.juego.imagen.url }}" alt="{{ datosgames.juego.nombre }}">
+    <div class="p-8 text-4xl ml-24 font-bold text-white relative top-4 mx-12">Juegos más vistos</div>
+    <div class="flex flex-wrap justify-start border-t-2 border-orange-600 bg-fondo p-8 mx-10">
+        {% for datosordenados in datosordenados %}
+            <a href="{% url 'info' datosordenados.juego.id %}">
+                <div class="w-90 ml-7 bg-fondonaranja hover:bg-orange-600 shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border-red-500">
+                    <img class="w-full h-48 object-cover" src="{{ datosordenados.juego.imagen.url }}" alt="{{ datosgames.juego.nombre }}">
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-800">{{ datosgames.juego.nombre }}</h2>
+                        <h2 class="text-lg font-semibold text-gray-800">{{ datosordenados.juego.nombre }}</h2>
                         <p class="text-sm text-gray-600">
-                            {% for categoria in datosgames.categoria.all %}
+                            {% for categoria in datosordenados.categoria.all %}
                                 {{ categoria.categoria }}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                         </p>
@@ -21,5 +21,28 @@
             </a>
         {% endfor %}
     </div>
+    {% for categoria, juegos in juegosFiltrados.items %}
+    <a href="{% url 'categoria' %}?categoria={{ i.categoria }}">
+    <div class="p-8 text-3xl ml-24 font-bold text-white relative top-4 mx-12">{{ categoria }}</div>
+    </a>
+    <div class="flex flex-wrap justify-start border-t-2 border-orange-600 bg-fondo p-8 mx-10">
+        {% for juego in juegos %}
+            <a href="{% url 'info' juego.juego.id %}">
+                <div class="w-90 ml-7 bg-fondonaranja hover:bg-orange-600 shadow-md rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border-red-500">
+                    <img class="w-full h-48 object-cover" src="{{ juego.juego.imagen.url }}" alt="{{ juego.juego.nombre }}">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold text-gray-800">{{ juego.juego.nombre }}</h2>
+                        <p class="text-sm text-gray-600">
+                            {% for categoria in juego.categoria.all %}
+                                {{ categoria.categoria }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endfor %}
+
 </body>
 {% endblock %}

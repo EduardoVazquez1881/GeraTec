@@ -15,11 +15,16 @@
             <div class="container mx-auto">
                 <div class="sm:flex justify-around">
                     <a href="/menu" class="text-white text-3xl font-bold p-4 relative top-1 -ml-16"> Gera Games</a>
-                    
                     <ul class="text-white sm:self-center text-base border-t sm:border-none">
                         <li class="sm:inline-block pt-3">
+                            <button class="group relative p-3 hover:text-black">Categorias
+                                <div class="absolute top-2 right-0 rounded-lg bg-azulhover p-4 mt-1 shadow-md scale-y-0 group-hover:scale-y-100 origin-top duration-300">
+                                    {% for i in categorias %}
+                                        <a href="{% url 'categoria' %}?categoria={{ i.categoria }}" class="hover:bg-fondonaranja block"> {{ i.categoria }} </a>
+                                    {% endfor %} 
+                                </div>     
+                            </button>
                             <a href="/menu" class="p-3 hover:text-black">Inicio</a>
-                            <a href="" class="p-3 hover:text-black">Categorias</a>
                             <input type="text" class="border border-fondo bg-fondonaranja rounded-lg p-3 h-9 placeholder:text-white" name="" id="" placeholder="Buscar">
                             <a href="/login" class="p-3 hover:text-black">Ingresar</a>
                         </li>
