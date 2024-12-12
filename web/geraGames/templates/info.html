@@ -15,14 +15,14 @@
                     <p class="text-justify font-light text-white text-base md:text-xl">{{ juego.descripcion }}</p>
                     <div data-aos="zoom-in" class="flex flex-wrap gap-2 mt-4">
                         {% for i in categorias %}
-                        <div class="p-1 px-3 bg-fondonaranja rounded-xl text-sm shadow-sm hover:text-white hover:bg-orange-600  hover:scale-110 transition-all duration-300">
+                        <div class="p-1 px-3 bg-fondonaranja rounded-xl text-sm shadow-md shadow-black hover:text-white hover:bg-orange-600  hover:scale-110 transition-all duration-300">
                             {{ i.categoria}}
                         </div>
                         {% endfor %}
                     </div>
                     <div data-aos="zoom-in" data-aos-duration="2000" class="flex flex-wrap gap-2 mt-4">
                         {% for i in plataformas %}
-                        <div class="p-1 px-3 bg-fondonaranja rounded-xl text-sm shadow-sm hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
+                        <div class="p-1 px-3 bg-fondonaranja rounded-xl text-sm shadow-md shadow-black hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
                             {{ i.palaforma}}
                         </div>
                         {% endfor %}
@@ -30,30 +30,65 @@
                 </div>
             </div>
         </div>
-        <div class="mt-12 md:mt-20">
+        <div class="mt-14 md:mt-20">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center ">
                 <div>
-                    <p class="font-bold text-xl text-white md:text-2xl mb-4">Precio</p>
-                    <div class="text-2xl h-32 w-32 md:h-48 md:w-48 mx-auto p-8 shadow-sm shadow-white bg-fondonaranja rounded-full flex items-center justify-center hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
+                    <p class="font-bold text-xl text-white md:text-2xl mb-4 " data-aos="zoom-in" data-aos-duration="1000">Precio</p>
+                    <div data-aos="zoom-in" data-aos-duration="1000" class="text-2xl h-32 w-32 md:h-48 md:w-48 mx-auto p-8 shadow-lg shadow-black bg-fondonaranja rounded-full flex items-center justify-center hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
                         ${{ juego.precio }}
                     </div>
                 </div>
                 <div>
-                    <p class="font-bold text-xl text-white md:text-2xl mb-4">Desarrollado</p>
-                    <div class="text-2xl h-32 w-32 md:h-48 md:w-48 mx-auto p-8 shadow-sm shadow-white bg-fondonaranja rounded-full flex items-center justify-center hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
+                    <p class="font-bold text-xl text-white md:text-2xl mb-4" data-aos="zoom-in" data-aos-duration="3000">Desarrollado</p>
+                    <div data-aos="zoom-in" data-aos-duration="3000" class="text-2xl h-32 w-32 md:h-48 md:w-48 mx-auto p-8 shadow-lg shadow-black bg-fondonaranja rounded-full flex items-center justify-center hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
                         {{ creadores }}
                     </div>
                 </div>
                 <div>
-                    <p class="font-bold text-xl text-white md:text-2xl mb-4">Calificación</p>
-                    <div class="text-2xl h-32 w-32 md:h-48 md:w-48 mx-auto p-8 shadow-sm shadow-white bg-fondonaranja rounded-full flex items-center justify-center hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
+                    <p class="font-bold text-xl text-white md:text-2xl mb-4" data-aos="zoom-in" data-aos-duration="2000">Calificación</p>
+                    <div data-aos="zoom-in" data-aos-duration="2000" class="text-2xl h-32 w-32 md:h-48 md:w-48 mx-auto p-8 shadow-lg shadow-black bg-fondonaranja rounded-full flex items-center justify-center hover:text-white hover:bg-orange-600 hover:scale-110 transition-all duration-300">
                         {{total}}
                     </div>
                 </div>
             </div>
         </div>
+
+                
+        <form method="POST" class="mt-40">
+            {% csrf_token %}
+            <h2 class="text-4xl font-bold text-white">Deja tu reseña</h2>
+                <div class="flex flex-wrap mt-12">
+                    <label for="calificacion" class="text-white p-5">Calificacion</label>
+                    <select name="calificacion" id="calificacion" class="w-40 p-2 bg-fondonaranja text-white rounded-lg">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label for="dificultad" class="text-white p-5">dificultad</label>
+                    <select name="dificultad" id="dificultad" class="w-40 p-2 bg-fondonaranja text-white rounded-lg">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <div class=" relative left-14 ">
+                        <label for="res" class="p-5 relative -top-7"> Reseña</label>
+                        <textarea id="res" name="res" type="res" class="w-150 h-auto p-2 bg-fondonaranja text-white rounded-lg resize-none"></textarea>
+                    </div>
+                    <div class="relative left-18 ">
+                        <button class="submit" class="bg-fondonaranja p-4 rounded-lg"> Confirmar</button>
+                    </div>
+                </div>
+
+                
+
+        </form>
+
         <div class="mt-12">
-            <h2 class="text-2xl font-bold text-white">Reseñas</h2>
+            <h2 class="text-4xl font-bold text-white">Reseñas</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                 {% if res %}
                     {% for i in res %}

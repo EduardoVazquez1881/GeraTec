@@ -3,6 +3,7 @@ from .models import Usuario, Juego, JuegosDatos, Review, Categoria
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from datetime import date
 
 
 
@@ -25,7 +26,9 @@ def login(request):
             usuario = Usuario.objects.get(correo=correo)
 
             if usuario.contra == contra:
-                return redirect('/menu')  # Redirige al inicio
+                request.session['usuario_id'] = usuario.id
+                request.session['usuario_nombre'] = usuario.nombre
+                return redirect('/menu') 
             else:
                 return render(request, 'login.html', {'error': 'Contraseña incorrecta'})
         except Usuario.DoesNotExist:
@@ -58,8 +61,11 @@ def menu(request):
     categorias = Categoria.objects.all()
     JuegosCategorias = datosgames.filter(categoria__in=categorias)
 
-    juegosFiltrados = {}
+    usuario_id = request.session.get('usuario_id')
+    print(usuario_id)
 
+
+    juegosFiltrados = {}
     for i in categorias:
         juegosFiltrados[i.categoria] = datosgames.filter(categoria=i)
         
@@ -69,6 +75,26 @@ def menu(request):
 
 
 def info(request, juego_id):
+
+    if request.method == 'POST':
+        calificacion = request.POST['calificacion']
+        dificultad = request.POST['dificultad']
+        res = request.POST['res']
+        fecha = date.today()
+        usuario_id = request.session.get('usuario_id')
+
+        filtro = Review.objects.filter(juego_id=juego_id, usuario_id=usuario_id)
+        if filtro.count() == 0:
+            Review.objects.create(juego_id=juego_id, calificacion=calificacion, dificultad=dificultad, res=res, fecha=fecha, usuario_id=usuario_id)
+        else:
+            print('Ya has hecho una review')
+        
+
+
+
+
+
+
         
     juego = get_object_or_404(Juego, pk=juego_id)
     juego.visitas += 1
@@ -86,7 +112,7 @@ def info(request, juego_id):
         calificaciones = [res.calificacion for res in res]
         for i in calificaciones:
             total += i
-        total = total / len(calificaciones)
+        total = total / len(calificaciones)            
     return render(request, 'info.html', {'juego': juego, 'creadores': creadores, 'plataformas': plataformas, 'categorias': categorias, 'res': res, 'total': total})
 
 def categoria(request):

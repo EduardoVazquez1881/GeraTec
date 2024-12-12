@@ -7,6 +7,9 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link href="{% static 'css/output.css' %}" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js" defer></script>
+
+        
 
     </head>
     <body>
@@ -17,16 +20,30 @@
                     <a href="/menu" class="text-white text-3xl font-bold p-4 relative top-1 -ml-16"> Gera Games</a>
                     <ul class="text-white sm:self-center text-base border-t sm:border-none">
                         <li class="sm:inline-block pt-3">
-                            <button class="group relative p-3 hover:text-black">Categorias
-                                <div class="absolute top-2 right-0 rounded-lg bg-azulhover p-4 mt-1 shadow-md scale-y-0 group-hover:scale-y-100 origin-top duration-300">
+                            <div class="relative inline-block">
+                                <!-- Botón -->
+                                <button id="categorias-button" class="bg-fondonaranja p-3 hover:text-black rounded-md">
+                                    Categorías
+                                </button>
+                            
+                                <!-- Menú desplegable -->
+                                <div id="categorias-menu" 
+                                    class="absolute left-0 mt-2 z-50 w-48 bg-azulhover rounded-lg shadow-md hidden">
                                     {% for i in categorias %}
-                                        <a href="{% url 'categoria' %}?categoria={{ i.categoria }}" class="hover:bg-fondonaranja block"> {{ i.categoria }} </a>
-                                    {% endfor %} 
-                                </div>     
-                            </button>
-                            <a href="/menu" class="p-3 hover:text-black">Inicio</a>
-                            <input type="text" class="border border-fondo bg-fondonaranja rounded-lg p-3 h-9 placeholder:text-white" name="" id="" placeholder="Buscar">
-                            <a href="/login" class="p-3 hover:text-black">Ingresar</a>
+                                        <a href="{% url 'categoria' %}?categoria={{ i.categoria }}" 
+                                           class="hover:bg-fondonaranja block px-4 py-2 rounded-md text-white">
+                                            {{ i.categoria }}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <a href="/menu" class="p-3 hover:text-black">Inicio</a>
+                                <input type="text" class="border border-fondo bg-fondonaranja rounded-lg p-3 h-9 placeholder:text-white" name="" id="" placeholder="Buscar">
+                                {% if usuario_id %}
+                                <img src="{{ fotousuario.url }}" class="w-14 h-14 rounded-full mx-auto relative -top-12 left-60 ">
+                                {% else %}
+                                    <a href="/login" class="p-3 hover:text-black">Ingresar</a>
+                                {% endif %}
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -45,6 +62,23 @@
                 duration: 1000, // Duración de la animación en milisegundos
                 once: true,     // Si la animación se ejecuta solo la primera vez que aparece el elemento
             });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const button = document.querySelector("#categorias-button");
+            const menu = document.querySelector("#categorias-menu");
+
+            button.addEventListener("click", () => {
+                menu.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!button.contains(event.target) && !menu.contains(event.target)) {
+                    menu.classList.add("hidden");
+                }
+            });
+        });
+
         </script>
         {% endblock %}
     </body>
