@@ -21,7 +21,7 @@ def login(request):
     if request.method == 'POST':
         correo = request.POST['correo']
         contra = request.POST['contra']
-
+        
         try:
             usuario = Usuario.objects.get(correo=correo)
 
@@ -83,6 +83,9 @@ def info(request, juego_id):
         fecha = date.today()
         usuario_id = request.session.get('usuario_id')
 
+        if usuario_id == None:
+            return render(request, 'login.html')
+        
         filtro = Review.objects.filter(juego_id=juego_id, usuario_id=usuario_id)
         if filtro.count() == 0:
             Review.objects.create(juego_id=juego_id, calificacion=calificacion, dificultad=dificultad, res=res, fecha=fecha, usuario_id=usuario_id)
@@ -117,3 +120,6 @@ def categoria(request):
     print(juegos)
     return render(request, 'categorias.html', {'categoria': categoria_obj, 'juegos': juegos})
 
+def cerrar(request):
+    request.session.flush()
+    return redirect('/menu')

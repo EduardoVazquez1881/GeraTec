@@ -33,6 +33,7 @@ urlpatterns = [
     path("menu/", views.menu, name='menu'),
     path("menu/<int:juego_id>/", views.info, name='info'),
     path("categoria/", views.categoria, name='categoria'),
+    path("cerrar/", views.cerrar, name='cerrar'),
 
 ]
 

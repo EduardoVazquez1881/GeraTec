@@ -14,51 +14,68 @@
     </head>
     <body>
         {% block nav %}
-        <nav class="bg-fondonaranja shadow-2xl h-20 rounded-xl border border-none">
-            <div class="container mx-auto">
-                <div class="sm:flex justify-around">
-                    <a href="/menu" class="text-white text-3xl font-bold p-4 relative top-1 -ml-16"> Gera Games</a>
-                    <ul class="text-white sm:self-center text-base border-t sm:border-none">
-                        <li class="sm:inline-block pt-3">
-                            <div class="relative inline-block">
-                                <button id="categorias-button" class="bg-fondonaranja p-3 hover:text-black rounded-md">
-                                    Categorías
-                                </button>
-                            
-                                <div id="categorias-menu" 
-                                    class="absolute left-0 mt-2 z-50 w-48 bg-azulhover rounded-lg shadow-md hidden">
-                                    {% for i in categorias %}
-                                        <a href="{% url 'categoria' %}?categoria={{ i.categoria }}" 
-                                           class="hover:bg-fondonaranja block px-4 py-2 rounded-md text-white">
-                                            {{ i.categoria }}
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                                <a href="/menu" class="p-3 hover:text-black">Inicio</a>
-                                <input type="text" class="border border-fondo bg-fondonaranja rounded-lg p-3 h-9 placeholder:text-white" name="" id="" placeholder="Buscar">
-                                {% if usuario_id %}
-                                <img src="{{ fotousuario.url }}" class="w-14 h-14 rounded-full mx-auto relative -top-12 left-60 ">
-                                {% else %}
-                                    <a href="/login" class="p-3 hover:text-black">Ingresar</a>
-                                {% endif %}
-                            </div>
-                        </li>
-                    </ul>
+        <nav class="bg-fondonaranja shadow-2xl rounded-xl border-none">
+            <div class="container mx-auto px-4">
+              <div class="flex items-center justify-between h-full">
+                <a href="/menu" class="text-white text-3xl font-bold">
+                  Gera Games
+                </a>          
+                <div class="flex items-center space-x-4">
+                  <div class="relative group">
+                    <button id="categorias-button" class="text-white hover:bg-azulhover px-3 py-2 rounded-md">
+                      Categorías
+                    </button>
+                    <div id="categorias-menu" class="absolute left-0 top-full z-50 mt-2 w-48 bg-azulhover rounded-lg shadow-md hidden">
+                      {% for i in categorias %}
+                        <a href="{% url 'categoria' %}?categoria={{ i.categoria }}" 
+                           class="block px-4 py-2 text-white hover:bg-fondonaranja rounded-md">
+                          {{ i.categoria }}
+                        </a>
+                      {% endfor %}
+                    </div>
+                  </div>          
+                  <a href="/menu" class="text-white hover:text-black px-3 py-2 rounded-md">
+                    Inicio
+                  </a>          
+                  <div class="relative">
+                    <input type="text" placeholder="Buscar" class="bg-fondonaranja border border-white text-white rounded-lg px-3 py-2 w-48 placeholder-white focus:outline-none focus:ring-2 focus:ring-white">
+                  </div>          
+                  <div class="relative">
+                    {% if usuario_id %}
+                      <div class="group">
+                        <img id="foto" src="{{ fotousuario.url }}" alt="User Profile" class="w-14 h-14 rounded-full cursor-pointer">
+                        <div id="foto-info" class="absolute right-0 top-full mt-2 w-48 z-50 bg-azulhover rounded-lg shadow-md hidden">
+                          <a href="/cerrar" class="block px-4 py-2 text-white hover:bg-fondonaranja rounded-md">
+                            Cerrar sesión
+                          </a>
+                        </div>
+                      </div>
+                    {% else %}
+                      <div class="flex space-x-3">
+                        <a href="/Perfil" class="text-white hover:text-black px-3 py-2 rounded-md">
+                          Perfil
+                        </a>
+                        <a href="/login" class="text-white hover:text-black px-3 py-2 rounded-md">
+                          Ingresar
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
                 </div>
+              </div>
             </div>
-        </nav>
+          </nav>
         {% endblock %}
         {% block body %}
         
         {% endblock %}
-        <!-- Importar JavaScript -->
         {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
             // Inicializa AOS
             AOS.init({
-                duration: 1000, // Duración de la animación en milisegundos
-                once: true,     // Si la animación se ejecuta solo la primera vez que aparece el elemento
+                duration: 1000, 
+                once: true,     
             });
         </script>
         <script>
@@ -76,7 +93,21 @@
                 }
             });
         });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const  img = document.querySelector("#foto");
+                const  menu = document.querySelector("#foto-info");
+                img.addEventListener("click", () =>  {
+                    menu.classList.toggle("hidden");
+                });
 
+                document.addEventListener("click", (event) => {
+                    if (!img.contains(event.target) && !menu.contains(event.target)) {
+                        menu.classList.add("hidden");
+                    }
+                });
+            });
         </script>
         {% endblock %}
     </body>
