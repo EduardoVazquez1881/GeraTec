@@ -123,3 +123,11 @@ def categoria(request):
 def cerrar(request):
     request.session.flush()
     return redirect('/menu')
+
+
+def perfil(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = Usuario.objects.get(id=usuario_id)
+    imagen = usuario.imagen
+
+    return render(request, 'perfil.html', {'usuario': usuario, 'imagen': imagen})

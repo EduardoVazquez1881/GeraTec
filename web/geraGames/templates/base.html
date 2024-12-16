@@ -45,16 +45,12 @@
                       <div class="group">
                         <img id="foto" src="{{ fotousuario.url }}" alt="User Profile" class="w-14 h-14 rounded-full cursor-pointer">
                         <div id="foto-info" class="absolute right-0 top-full mt-2 w-48 z-50 bg-azulhover rounded-lg shadow-md hidden">
-                          <a href="/cerrar" class="block px-4 py-2 text-white hover:bg-fondonaranja rounded-md">
-                            Cerrar sesión
-                          </a>
+                          <a href="/perfil" class="block px-4 py-2 text-white hover:bg-fondonaranja rounded-md">Perfil</a>
+                          <a href="/cerrar" class="block px-4 py-2 text-white hover:bg-fondonaranja rounded-md">Cerrar sesión</a>
                         </div>
                       </div>
                     {% else %}
                       <div class="flex space-x-3">
-                        <a href="/Perfil" class="text-white hover:text-black px-3 py-2 rounded-md">
-                          Perfil
-                        </a>
                         <a href="/login" class="text-white hover:text-black px-3 py-2 rounded-md">
                           Ingresar
                         </a>

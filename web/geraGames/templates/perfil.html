@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block tittle %}Perfils{% endblock %}
+
+{% block body %}
+<body class="bg-fondo">
+    <div class="flex border-t-2 mt-4 border-black h-screen w-screen justify-center">
+        <div class="container mx-auto">
+            <div class="border-t-2 mt-4 border-black w-auto flex flex-col justify-center  ">
+                <div class="flex justify-center">
+                    <img src="{{usuario.imagen.url}}" alt="" class="h-40 w-40 rounded-full hover:blur-sm">
+                </div>
+                <label for="">Nombre </label>
+                <input type="text" placeholder="{{ usuario.nombre }}"> 
+
+                <label for="">Apellidos </label>
+                <input type="text" placeholder="{{ usuario.apellido}}">
+                
+                <label for="">Correo </label>
+                <input type="text" placeholder="{{ usuario.correo}}">
+
+                <label for="">Contraseña anterior: </label>
+                <input type="text" placeholder="*******">
+
+                <label for="">Contraseña nueva: </label>
+                <input type="text" placeholder="*******">
+
+
+
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+{% endblock %}
